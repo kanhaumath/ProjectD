@@ -4,12 +4,14 @@ FROM node:16
 # Set working directory
 WORKDIR /app
 
-# Copy files
+# Copy package files first
 COPY package*.json ./
-COPY src ./src
 
 # Install dependencies
 RUN npm install
+
+# Copy the rest of the application
+COPY . .
 
 # Expose port
 EXPOSE 3000

@@ -2,9 +2,23 @@ const express = require('express');
 const Item = require('../models/itemModel'); // Ensure you have this model defined
 const router = express.Router();
 
-// Test /main endpoint
+// In-memory message to be updated dynamically
+let dynamicMessage = 'Welcome to the main API endpoint!';
+
+// Test /main endpoint (GET)
 router.get('/main', (req, res) => {
-  res.json({ message: 'Welcome to the main API endpoint!' });
+  res.json({ message: dynamicMessage });
+});
+
+// Update the /main message (POST)
+router.post('/main', (req, res) => {
+  const { message } = req.body;
+  if (message) {
+    dynamicMessage = message;
+    res.json({ message: 'Message updated successfully!' });
+  } else {
+    res.status(400).json({ error: 'Message value is required.' });
+  }
 });
 
 // Create
